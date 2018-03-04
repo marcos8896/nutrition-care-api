@@ -38,7 +38,7 @@ class ExerciseController extends Controller
      */
     public function show(Exercise $exercise)
     {
-        return new ExcersiseResource( Excersise::findOrFail($excersise->id) );
+        return new ExerciseResource( Exercise::findOrFail($exercise->id) );
     }
 
     /**
