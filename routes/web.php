@@ -10,19 +10,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resources([
+  'foods' => 'FoodController'
+]);
 
-Route::get('api/food/all', function () {
-  return FoodResource::collection(Food::paginate());
-});
+// Route::get('api/user/all', function () {
+//   return UserResource::collection(User::paginate());
+// });
 
-Route::get('api/food/{id}', function ($id) {
-    return new FoodResource(Food::find($id));
-});
-
-Route::get('api/user/all', function () {
-  return UserResource::collection(User::paginate());
-});
-
-Route::get('api/user/{id}', function ($id) {
-    return new UserResource(User::find($id));
-});
+// Route::get('api/user/{id}', function ($id) {
+//     return new UserResource(User::find($id));
+// });
