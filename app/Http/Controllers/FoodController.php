@@ -27,6 +27,7 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
+      
         $this->validate($request, [
           'description'       => 'required|max:500|string',
           'proteins'          => 'required|numeric',
@@ -35,16 +36,16 @@ class FoodController extends Controller
           'calories'          => 'required|numeric'
         ]);
 
-        $food = new Food;
-
-        $food->description     = $request->description;
-        $food->proteins        = $request->proteins;
-        $food->carbohydrates   = $request->carbohydrates;
-        $food->fats            = $request->fats;
-        $food->calories        = $request->calories;
-        
+        $food = new Food(
+          request(['description', 'proteins', 'carbohydrates', 
+                   'fats', 'calories']));
 
         $food->save();
+
+        return response([
+          'status' => 'success',
+          'data' => $food
+         ], 200);
 
     }
 
