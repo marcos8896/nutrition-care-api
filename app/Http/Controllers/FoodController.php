@@ -96,6 +96,7 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        //
+        $food->delete();
+        return $this->customResponse('success', $food, 200);
     }
 }
