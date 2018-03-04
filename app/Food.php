@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Food extends Model
 {
-  protected $guarded = ['id'];
 
   protected $fillable = [
     'description', 'proteins', 'carbohydrates',
