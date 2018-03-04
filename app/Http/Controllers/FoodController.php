@@ -29,11 +29,11 @@ class FoodController extends Controller
     {
       
         $this->validate($request, [
-          'description'       => 'required|max:500|string',
-          'proteins'          => 'required|numeric',
-          'carbohydrates'     => 'required|numeric',
-          'fats'              => 'required|numeric',
-          'calories'          => 'required|numeric'
+          'description'   => 'required|max:500|string',
+          'proteins'      => 'required|numeric',
+          'carbohydrates' => 'required|numeric',
+          'fats'          => 'required|numeric',
+          'calories'      => 'required|numeric'
         ]);
 
         $food = new Food(
@@ -42,10 +42,7 @@ class FoodController extends Controller
 
         $food->save();
 
-        return response([
-          'status' => 'success',
-          'data' => $food
-         ], 200);
+        return response($food, 200);
 
     }
 
@@ -64,17 +61,6 @@ class FoodController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Food  $food
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Food $food)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -83,7 +69,23 @@ class FoodController extends Controller
      */
     public function update(Request $request, Food $food)
     {
-        //
+        $this->validate($request, [
+          'description'   => 'required|max:500|string',
+          'proteins'      => 'required|numeric',
+          'carbohydrates' => 'required|numeric',
+          'fats'          => 'required|numeric',
+          'calories'      => 'required|numeric'
+        ]);
+
+        $food->description   = $request->description;
+        $food->proteins      = $request->proteins;
+        $food->carbohydrates = $request->carbohydrates;
+        $food->fats          = $request->fats;
+        $food->calories      = $request->calories;
+
+        $food->update();
+
+        return response($food, 200);
     }
 
     /**
