@@ -1,10 +1,5 @@
 <?php
 
-use App\Food;
-use App\User;
-use App\Http\Resources\FoodResource;
-use App\Http\Resources\UserResource;
-
 
 Route::get('/', function () {
     return view('welcome');
