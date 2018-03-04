@@ -10,9 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resources([
-  'foods' => 'FoodController'
-]);
+Route::apiResources(['foods' => 'FoodController']);
 
 // Route::get('api/user/all', function () {
 //   return UserResource::collection(User::paginate());

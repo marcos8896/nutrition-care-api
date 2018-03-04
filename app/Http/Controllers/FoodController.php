@@ -27,7 +27,25 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'description'       => 'required|max:500|string',
+          'proteins'          => 'required|numeric',
+          'carbohydrates'     => 'required|numeric',
+          'fats'              => 'required|numeric',
+          'calories'          => 'required|numeric'
+        ]);
+
+        $food = new Food;
+
+        $food->description     = $request->description;
+        $food->proteins        = $request->proteins;
+        $food->carbohydrates   = $request->carbohydrates;
+        $food->fats            = $request->fats;
+        $food->calories        = $request->calories;
+        
+
+        $food->save();
+
     }
 
     /**
@@ -38,7 +56,10 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-      return new FoodResource(Food::find($food->id));
+        return new FoodResource(
+          Food::findOrFail($food->id)
+      );
+
     }
 
     /**
