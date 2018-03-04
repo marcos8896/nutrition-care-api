@@ -42,7 +42,7 @@ class FoodController extends Controller
 
         $food->save();
 
-        return response($food, 200);
+        return $this->customResponse('success', $food, 200);
 
     }
 
@@ -54,9 +54,7 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        return new FoodResource(
-          Food::findOrFail($food->id)
-      );
+        return new FoodResource( Food::findOrFail($food->id) );
 
     }
 
@@ -85,7 +83,7 @@ class FoodController extends Controller
 
         $food->update();
 
-        return response($food, 200);
+        return $this->customResponse('success', $food, 200);
     }
 
     /**
