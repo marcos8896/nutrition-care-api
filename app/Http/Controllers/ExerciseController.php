@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exercise;
 use Illuminate\Http\Request;
 use App\Http\Resources\ExerciseResource;
-
+use Image;
 
 class ExerciseController extends Controller
 {
@@ -27,19 +27,26 @@ class ExerciseController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //   'name'         => 'required|max:150|string',
-        //   'base64_image' => 'required|string'
-        // ]);
+        $this->validate($request, [
+          'name'         => 'required|max:150|string',
+          'base64_image' => 'required|string'
+        ]);
 
-        // $exercise = new Exercise;
-        // $exercise = $request->name;
 
-        // $image = base64_encode(file_get_contents($request->file('base64_image')->pat‌​h()));
+        //Get the image from base64 string.
+        $img = Image::make($request->base64_image);
 
-        // $exercise->save();
+        $imageName = time() . $this->getImageExtension( $img );
+        $this->saveImageFromBase64($img, $imageName);
 
-        // return $this->customResponse('success', $food, 200);
+        $exercise           = new Exercise;
+        $exercise->name     = $request->name;
+        $exercise->srcImage = $imageName;
+
+        //Saves exercise instance on the database.
+        $exercise->save();
+
+        return $this->customResponse('success', $exercise, 200);
     }
 
     /**
@@ -75,4 +82,49 @@ class ExerciseController extends Controller
     {
         //
     }
+
+    /**
+     * Retrieves and returns extension from a given image.
+     *
+     * @param  \Image  $image
+     * @return \String $extension
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+     */
+    public function getImageExtension( $image ) {
+      
+      $extension = '';
+      $mime = $image->mime();
+      
+      if ($mime == 'image/jpeg')
+          $extension = '.jpg';
+      elseif ($mime == 'image/png')
+          $extension = '.png';
+      elseif ($mime == 'image/bmp')
+          $extension = '.bmp';
+
+      return $extension;
+
+    }
+
+    /**
+     * Saves a given image on the file system.
+     *
+     * @param  \Image   $image
+     * @param  \String  $imageName
+     * @return {*}
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+     */
+    public function saveImageFromBase64( $img, $imageName ) {
+        
+      //Performs a resize to the given image.
+      $img->resize(1000, null, function ($constraint) {
+        $constraint->aspectRatio();
+        $constraint->upsize();
+      });
+
+      //Saves the image on hard disk.
+      $img->save( public_path('/uploads/exercises/') . $imageName);
+
+    }
+
 }
