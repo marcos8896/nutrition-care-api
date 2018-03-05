@@ -77,7 +77,32 @@ class ExerciseController extends Controller
      */
     public function update(Request $request, Exercise $exercise)
     {
-        //
+      $this->validate($request, [
+        'name'         => 'required|max:150|string',
+        'base64_image' => 'nullable|string'
+      ]);
+
+      $exercise->name     = $request->name;
+
+      if($request->base64_image) {
+        //Get the image from base64 string.
+        $newImg = Image::make($request->base64_image);
+
+        //Delete current image for file system.
+        $imagePathToDelete = public_path($this->imagesPath) . $exercise->srcImage;
+        $this->deleteFile( $imagePathToDelete );
+
+        //Create new image on the file system.
+        $imageName = time() . $this->getImageExtension( $newImg );
+        $this->saveImageFromBase64($newImg, $imageName);
+
+        $exercise->srcImage = $imageName;
+      }
+
+      $exercise->update();
+
+      return $this->customResponse('success', $exercise, 200);
+
     }
 
     /**
@@ -92,10 +117,7 @@ class ExerciseController extends Controller
         $imageName = $exercise->srcImage;
         $imagePathToDelete = public_path($this->imagesPath) . $imageName;
         
-        if(File::exists($imagePathToDelete)) {
-            File::delete($imagePathToDelete);
-        }
-        
+        $this->deleteFile( $imagePathToDelete );
         $exercise->delete();
         
         return $this->customResponse('success', $exercise, 200);
@@ -143,6 +165,11 @@ class ExerciseController extends Controller
       //Saves the image on hard disk.
       $img->save( public_path( $this->imagesPath ) . $imageName);
 
+    }
+
+    public function deleteFile( $path ) {
+      if(File::exists($path))
+        File::delete($path);
     }
 
 }
