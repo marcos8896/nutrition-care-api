@@ -13,6 +13,7 @@ class FoodController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function index()
     {
@@ -24,6 +25,7 @@ class FoodController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function store(Request $request)
     {
@@ -51,6 +53,7 @@ class FoodController extends Controller
      *
      * @param  \App\Food  $food
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function show(Food $food)
     {
@@ -64,6 +67,7 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Food  $food
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function update(Request $request, Food $food)
     {
@@ -91,6 +95,7 @@ class FoodController extends Controller
      *
      * @param  \App\Food  $food
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function destroy(Food $food)
     {
