@@ -13,10 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
+//Authentication's routes.
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//WareHopes's routes.
 Route::apiResources(['foods' => 'FoodController']);
 Route::apiResources(['exercises' => 'ExerciseController']);
+
+//Processes' routes.
+// ...
+
 
