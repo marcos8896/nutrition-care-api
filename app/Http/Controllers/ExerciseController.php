@@ -6,13 +6,18 @@ use App\Exercise;
 use Illuminate\Http\Request;
 use App\Http\Resources\ExerciseResource;
 use Image;
+use File;
 
 class ExerciseController extends Controller
 {
+
+    private $imagesPath = '/uploads/exercises/';
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function index()
     {
@@ -24,6 +29,7 @@ class ExerciseController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function store(Request $request)
     {
@@ -54,6 +60,7 @@ class ExerciseController extends Controller
      *
      * @param  \App\Exercise  $exercise
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function show(Exercise $exercise)
     {
@@ -66,6 +73,7 @@ class ExerciseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Exercise  $exercise
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function update(Request $request, Exercise $exercise)
     {
@@ -77,10 +85,20 @@ class ExerciseController extends Controller
      *
      * @param  \App\Exercise  $exercise
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function destroy(Exercise $exercise)
     {
-        //
+        $imageName = $exercise->srcImage;
+        $imagePathToDelete = public_path($this->imagesPath) . $imageName;
+        
+        if(File::exists($imagePathToDelete)) {
+            File::delete($imagePathToDelete);
+        }
+        
+        $exercise->delete();
+        
+        return $this->customResponse('success', $exercise, 200);
     }
 
     /**
@@ -123,7 +141,7 @@ class ExerciseController extends Controller
       });
 
       //Saves the image on hard disk.
-      $img->save( public_path('/uploads/exercises/') . $imageName);
+      $img->save( public_path( $this->imagesPath ) . $imageName);
 
     }
 
