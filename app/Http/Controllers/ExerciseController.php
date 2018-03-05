@@ -117,7 +117,7 @@ class ExerciseController extends Controller
     public function saveImageFromBase64( $img, $imageName ) {
         
       //Performs a resize to the given image.
-      $img->resize(1000, null, function ($constraint) {
+      $img->resize(null, 450, function ($constraint) {
         $constraint->aspectRatio();
         $constraint->upsize();
       });
