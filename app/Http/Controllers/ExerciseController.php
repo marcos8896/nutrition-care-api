@@ -27,7 +27,19 @@ class ExerciseController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->validate($request, [
+        //   'name'         => 'required|max:150|string',
+        //   'base64_image' => 'required|string'
+        // ]);
 
+        // $exercise = new Exercise;
+        // $exercise = $request->name;
+
+        // $image = base64_encode(file_get_contents($request->file('base64_image')->pat‌​h()));
+
+        // $exercise->save();
+
+        // return $this->customResponse('success', $food, 200);
     }
 
     /**
