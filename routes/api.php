@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//WareHopes's routes.
+//WareHopes' routes.
 Route::apiResources(['foods' => 'FoodController']);
 Route::apiResources(['exercises' => 'ExerciseController']);
 
