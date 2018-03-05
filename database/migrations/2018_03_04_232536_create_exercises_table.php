@@ -16,7 +16,7 @@ class CreateExercisesTable extends Migration
         Schema::create('exercises', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
-            $table->string('srcImage')->default('default.png');
+            $table->string('srcImage');
             $table->timestamps();
         });
     }
