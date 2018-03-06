@@ -61,7 +61,16 @@ class TypeRoutineController extends Controller
      */
     public function update(Request $request, TypeRoutine $typeroutine)
     {
-        //
+        $this->validate($request, [
+          'description'   => 'required|max:500|string'
+        ]);
+
+        $typeroutine->description   = $request->description;
+       
+
+        $typeroutine->update();
+
+        return $this->customResponse('success', $typeroutine, 200);
     }
 
     /**
