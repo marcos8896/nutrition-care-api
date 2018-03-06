@@ -69,7 +69,24 @@ class UserProgressController extends Controller
      */
     public function update(Request $request, UserProgress $userprogress)
     {
-        //
+        $this->validate($request, [
+          'weight'          => 'required|numeric',
+          'fat_percentage'  => 'required|numeric',
+          'fat_kilogram'    => 'required|numeric',
+          'muscle_kilogram' => 'required|numeric',
+          'progress_date'   => 'date'
+        ]);
+
+        $userprogress->weight          = $request->weight;
+        $userprogress->fat_percentage  = $request->fat_percentage;
+        $userprogress->fat_kilogram    = $request->fat_kilogram;
+        $userprogress->muscle_kilogram = $request->muscle_kilogram;
+        $userprogress->progress_date   = $request->progress_date;
+
+        $userprogress->update();
+        
+        return $this->customResponse('success', $userprogress, 200);
+        
     }
 
     /**
