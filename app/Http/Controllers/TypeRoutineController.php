@@ -28,7 +28,15 @@ class TypeRoutineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'description'   => 'required|max:500|string'
+        ]);
+
+        $typeRoutine = new TypeRoutine( request(['description']) );
+
+        $typeRoutine->save();
+
+        return $this->customResponse('success', $typeRoutine, 200);
     }
 
     /**
