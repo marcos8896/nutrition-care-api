@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //WareHopes' routes.
 Route::apiResources(['foods' => 'FoodController']);
 Route::apiResources(['exercises' => 'ExerciseController']);
+Route::apiResources(['typeroutines' => 'TypeRoutineController']);
 
 //Processes' routes.
 // ...
