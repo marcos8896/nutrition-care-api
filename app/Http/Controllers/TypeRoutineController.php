@@ -12,6 +12,7 @@ class TypeRoutineController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function index()
     {
@@ -23,6 +24,7 @@ class TypeRoutineController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function store(Request $request)
     {
@@ -34,6 +36,7 @@ class TypeRoutineController extends Controller
      *
      * @param  \App\TypeRoutine  $typeRoutine
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function show(TypeRoutine $typeroutine)
     {
@@ -46,6 +49,7 @@ class TypeRoutineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\TypeRoutine  $typeRoutine
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function update(Request $request, TypeRoutine $typeroutine)
     {
@@ -57,6 +61,7 @@ class TypeRoutineController extends Controller
      *
      * @param  \App\TypeRoutine  $typeRoutine
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function destroy(TypeRoutine $typeroutine)
     {
