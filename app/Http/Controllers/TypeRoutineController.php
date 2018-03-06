@@ -82,6 +82,7 @@ class TypeRoutineController extends Controller
      */
     public function destroy(TypeRoutine $typeroutine)
     {
-        //
+        $typeroutine->delete();
+        return $this->customResponse('success', $typeroutine, 200);
     }
 }
