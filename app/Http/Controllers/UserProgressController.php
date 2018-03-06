@@ -30,7 +30,21 @@ class UserProgressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'weight'          => 'required|numeric',
+          'fat_percentage'  => 'required|numeric',
+          'fat_kilogram'    => 'required|numeric',
+          'muscle_kilogram' => 'required|numeric',
+          'progress_date'   => 'date'
+        ]);
+
+        $userprogress = new UserProgress(
+          request(['weight', 'fat_percentage', 'fat_kilogram', 
+                  'muscle_kilogram', 'progress_date']));
+
+        $userprogress->save();
+
+        return $this->customResponse('success', $userprogress, 200);
     }
 
     /**
