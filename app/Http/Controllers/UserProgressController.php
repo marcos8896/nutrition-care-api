@@ -56,7 +56,7 @@ class UserProgressController extends Controller
      */
     public function show(UserProgress $userprogress)
     {
-        //
+        return new UserProgressResource( UserProgress::findOrFail($userprogress->id) );
     }
 
     /**
