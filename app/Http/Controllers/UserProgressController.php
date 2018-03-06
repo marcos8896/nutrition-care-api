@@ -98,6 +98,7 @@ class UserProgressController extends Controller
      */
     public function destroy(UserProgress $userprogress)
     {
-        //
+        $userprogress->delete();
+        return $this->customResponse('success', $userprogress, 200);
     }
 }
