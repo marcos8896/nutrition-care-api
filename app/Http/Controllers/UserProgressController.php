@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\UserProgress;
+use App\Http\Resources\UserProgressResource;
+
 use Illuminate\Http\Request;
+
 
 class UserProgressController extends Controller
 {
@@ -15,7 +18,7 @@ class UserProgressController extends Controller
      */
     public function index()
     {
-        //
+        return UserProgressResource::collection(UserProgress::paginate(10));
     }
 
     /**
