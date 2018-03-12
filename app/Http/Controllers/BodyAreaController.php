@@ -29,7 +29,15 @@ class BodyAreaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'description'   => 'required|max:500|string'
+        ]);
+
+        $bodyArea = new BodyArea( request(['description']) );
+
+        $bodyArea->save();
+
+        return $this->customResponse('success', $bodyArea, 200);
     }
 
     /**
