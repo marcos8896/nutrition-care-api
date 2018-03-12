@@ -26,4 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    
+    /**
+     * Eloquent's definition of 'hasMany' relationship with an UserProgress instance.
+     *
+     * @param  {*}
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+    */
+    public function userProgresses()
+    {
+      return $this->hasMany(UserProgress::class)->withDefault();;
+    }
 }

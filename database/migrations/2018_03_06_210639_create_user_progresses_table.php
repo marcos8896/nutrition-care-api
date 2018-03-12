@@ -15,6 +15,7 @@ class CreateUserProgressesTable extends Migration
     {
         Schema::create('user_progresses', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->float('weight', 12, 2);
             $table->float('fat_percentage', 12, 2);
             $table->float('fat_kilogram', 12, 2);
