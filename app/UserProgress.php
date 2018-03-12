@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class UserProgress extends Model
 {
@@ -19,7 +20,7 @@ class UserProgress extends Model
      * @author Marcos Barrera del Río <elyomarcos@gmail.com>
     */
     public function user() {
-      return $this->belongsTo(User::class)->withDefault();;
+      return $this->belongsTo(User::class);
     }
 
 }

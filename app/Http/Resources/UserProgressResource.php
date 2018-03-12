@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use App\User;
 
 class UserProgressResource extends Resource
 {
@@ -23,6 +24,8 @@ class UserProgressResource extends Resource
           'progress_date' => $this->progress_date,
           'created_at' => $this->created_at,
           'updated_at' => $this->updated_at,
+          // 'owner' => $this->whenLoaded('user')
+          'owner' => $this->user
         ];
     }
 }

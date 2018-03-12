@@ -5,6 +5,7 @@ namespace App;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\UserProgress;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -37,7 +38,7 @@ class User extends Authenticatable implements JWTSubject
     */
     public function userProgresses()
     {
-      return $this->hasMany(UserProgress::class)->withDefault();;
+      return $this->hasMany(UserProgress::class);
     }
 
     
