@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\UserProgress;
 use App\Http\Resources\UserProgressResource;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -30,6 +31,9 @@ class UserProgressController extends Controller
      */
     public function store(Request $request)
     {
+
+        $user = Auth::guard('api')->user();
+
         $this->validate($request, [
           'weight'          => 'required|numeric',
           'fat_percentage'  => 'required|numeric',
@@ -42,7 +46,7 @@ class UserProgressController extends Controller
           request(['weight', 'fat_percentage', 'fat_kilogram', 
                   'muscle_kilogram', 'progress_date']));
 
-        $userprogress->save();
+        $user->userProgresses()->save($userprogress);
 
         return $this->customResponse('success', $userprogress, 200);
     }
@@ -56,7 +60,7 @@ class UserProgressController extends Controller
      */
     public function show(UserProgress $userprogress)
     {
-        return new UserProgressResource( UserProgress::findOrFail($userprogress->id) );
+        return new UserProgressResource( UserProgress::find($userprogress->id) );
     }
 
     /**
