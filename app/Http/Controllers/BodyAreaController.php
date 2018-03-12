@@ -61,9 +61,18 @@ class BodyAreaController extends Controller
      * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      * 
      */
-    public function update(Request $request, BodyArea $bodyArea)
+    public function update(Request $request, BodyArea $bodyarea)
     {
-        //
+        $this->validate($request, [
+          'description'   => 'required|max:500|string'
+        ]);
+
+        $bodyarea->description   = $request->description;
+      
+
+        $bodyarea->update();
+
+        return $this->customResponse('success', $bodyarea, 200);
     }
 
     /**
