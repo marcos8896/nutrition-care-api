@@ -82,8 +82,9 @@ class BodyAreaController extends Controller
      * @return \Illuminate\Http\Response
      * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
-    public function destroy(BodyArea $bodyArea)
+    public function destroy(BodyArea $bodyarea)
     {
-        //
+        $bodyarea->delete();
+        return $this->customResponse('success', $bodyarea, 200);
     }
 }
