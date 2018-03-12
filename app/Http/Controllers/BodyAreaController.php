@@ -13,6 +13,7 @@ class BodyAreaController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function index()
     {
@@ -24,6 +25,7 @@ class BodyAreaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function store(Request $request)
     {
@@ -35,6 +37,7 @@ class BodyAreaController extends Controller
      *
      * @param  \App\BodyArea  $bodyArea
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function show(BodyArea $bodyarea)
     {
@@ -47,6 +50,8 @@ class BodyAreaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\BodyArea  $bodyArea
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+     * 
      */
     public function update(Request $request, BodyArea $bodyArea)
     {
@@ -58,6 +63,7 @@ class BodyAreaController extends Controller
      *
      * @param  \App\BodyArea  $bodyArea
      * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
     public function destroy(BodyArea $bodyArea)
     {

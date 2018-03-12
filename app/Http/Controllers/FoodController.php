@@ -57,7 +57,7 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        return new FoodResource( Food::findOrFail($food->id) );
+        return new FoodResource( Food::find($food->id) );
 
     }
 
