@@ -15,6 +15,9 @@ class UserProgressResource extends Resource
      */
     public function toArray($request)
     {
+
+        $this->resource->load('user');
+
         return [
           'id' => $this->id,
           'weight' => $this->weight,

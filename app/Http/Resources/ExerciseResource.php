@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
-
 class ExerciseResource extends Resource
 {
     /**
@@ -14,12 +13,16 @@ class ExerciseResource extends Resource
      */
     public function toArray($request)
     {
+
+      $this->resource->load('bodyAreas');
+
       return [
         'id' => $this->id,
         'name' => $this->name,
         'srcImage' => $this->srcImage,
         'created_at' => $this->created_at,
-        'updated_at' => $this->updated_at
+        'updated_at' => $this->updated_at,
+        'body_areas' => $this->bodyAreas
       ];
     }
 }
