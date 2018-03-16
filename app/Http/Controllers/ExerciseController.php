@@ -52,9 +52,17 @@ class ExerciseController extends Controller
         $exercise->name     = $request->name;
         $exercise->srcImage = $imageName;
 
+
+        //Get id property from every selectedBodyArea object in the selectedBodyAreas array.
+        $selectedBodyAreas = array_column($request->selectedBodyAreas, 'id');
+
         //Saves exercise instance on the database.
         $exercise->save();
 
+        //Make the relationship between the new exercise and its related bodyAreas.
+        $exercise->bodyAreas()->attach($selectedBodyAreas);
+
+        //Response to the client.
         return $this->customResponse('success', $exercise, 200);
     }
 
