@@ -13,16 +13,13 @@ class ExerciseResource extends Resource
      */
     public function toArray($request)
     {
-
-      $this->resource->load('bodyAreas');
-
       return [
         'id' => $this->id,
         'name' => $this->name,
         'srcImage' => $this->srcImage,
         'created_at' => $this->created_at,
         'updated_at' => $this->updated_at,
-        'body_areas' => $this->bodyAreas
+        'body_areas' => $this->whenLoaded('bodyAreas')
       ];
     }
 }
