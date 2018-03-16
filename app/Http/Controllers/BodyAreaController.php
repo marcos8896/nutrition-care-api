@@ -17,7 +17,7 @@ class BodyAreaController extends Controller
      */
     public function index()
     {
-        return BodyAreaResource::collection(BodyArea::paginate(10));
+        return BodyAreaResource::collection(BodyArea::with('exercises')->get());
     }
 
     /**
