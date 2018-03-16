@@ -21,7 +21,8 @@ class ExerciseController extends Controller
      */
     public function index()
     {
-      return ExerciseResource::collection(Exercise::paginate(10));
+      // return ExerciseResource::collection(Exercise::all());
+      return ExerciseResource::collection(Exercise::with('bodyAreas')->get());
     }
 
     /**
