@@ -37,7 +37,8 @@ class ExerciseController extends Controller
         $this->validate($request, [
           'name'         => 'required|max:150|string',
           'base64_image' => 'required|string',
-          // 'body_area'    =
+          'selectedBodyAreas' => 'array|required',
+          "selectedBodyAreas.*.id" => 'required|numeric|distinct',
         ]);
 
 
