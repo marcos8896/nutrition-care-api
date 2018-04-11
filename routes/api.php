@@ -43,6 +43,7 @@ Route::apiResources(['bodyareas' => 'BodyAreaController']);
 
 //Processes' routes.
 Route::apiResources(['exercises' => 'ExerciseController']);
+Route::apiResources(['routine' => 'RoutineController']);
 
 
 
