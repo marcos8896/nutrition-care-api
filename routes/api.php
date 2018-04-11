@@ -37,12 +37,12 @@ Route::group([
 
 //WareHopes' routes.
 Route::apiResources(['foods' => 'FoodController']);
-Route::apiResources(['exercises' => 'ExerciseController']);
 Route::apiResources(['typeroutines' => 'TypeRoutineController']);
 Route::apiResources(['userprogresses' => 'UserProgressController']);
 Route::apiResources(['bodyareas' => 'BodyAreaController']);
 
 //Processes' routes.
-// ...
+Route::apiResources(['exercises' => 'ExerciseController']);
+
 
 
