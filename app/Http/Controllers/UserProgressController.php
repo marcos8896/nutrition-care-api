@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\UserProgress;
 use App\Http\Resources\UserProgressResource;
-use Illuminate\Support\Facades\Auth;
-
+use JWTAuth;
 use Illuminate\Http\Request;
 
 
@@ -32,7 +31,7 @@ class UserProgressController extends Controller
     public function store(Request $request)
     {
 
-        $user = Auth::guard('api')->user();
+        $user = JWTAuth::parseToken()->authenticate();
 
         $this->validate($request, [
           'weight'          => 'required|numeric',
