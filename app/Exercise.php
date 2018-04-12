@@ -14,4 +14,8 @@ class Exercise extends Model
     public function bodyAreas() {
       return $this->belongsToMany(BodyArea::class);
     }
+
+    public function routineDetails() {
+      return $this->hasMany(BodyArea::class);
+    }
 }
