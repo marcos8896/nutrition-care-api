@@ -16,19 +16,23 @@ class CreateRoutineDetailsTable extends Migration
         Schema::create('routine_details', function (Blueprint $table) {
             $table->integer('routine_id')->unsigned()->index();
             $table->foreign('routine_id')->references('id')->on('routines');
+            
+            $table->integer('day_id')->unsigned()->index();
 
             $table->integer('exercise_id')->unsigned()->index();
             $table->foreign('exercise_id')->references('id')->on('exercises');
-            
-            $table->integer('day_id')->unsigned()->index();
-            $table->foreign('day_id')->references('id')->on('days');
 
             $table->text('series');
             $table->text('reps');
             $table->text('description');
 
-            $table->primary(['routine_id', 'exercise_id', 'day_id']);
             $table->timestamps();
+        });
+
+        Schema::table('routine_details', function (Blueprint $table) {
+            $table->foreign('day_id')->references('id')->on('days');
+            $table->primary(['routine_id', 'exercise_id', 'day_id']);
+            
         });
     }
 
