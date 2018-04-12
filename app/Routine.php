@@ -9,7 +9,7 @@ use App\RoutineDetail;
 class Routine extends Model
 {
     protected $fillable = [
-        'description', 'state'
+        'user_id', 'description', 'state'
     ];
     
     /**
