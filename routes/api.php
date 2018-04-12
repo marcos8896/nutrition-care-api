@@ -44,7 +44,7 @@ Route::apiResources(['days' => 'DayController']);
 
 //Processes' routes.
 Route::apiResources(['exercises' => 'ExerciseController']);
-Route::apiResources(['routine' => 'RoutineController']);
+Route::apiResources(['routines' => 'RoutineController']);
 
 
 
