@@ -104,4 +104,16 @@ class UserProgressController extends Controller
         $userprogress->delete();
         return $this->customResponse('success', $userprogress, 200);
     }
+
+    public function getUserProgressByUserToken() {
+
+      $user = JWTAuth::parseToken()->authenticate();
+
+      //Check later how to avoid Lazy Loading.
+      $currentUserProgress = $user->userProgresses;
+
+      return $this->customResponse('success', $currentUserProgress, 200);
+      
+
+    }
 }
