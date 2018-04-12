@@ -39,7 +39,11 @@ Route::group([
 Route::apiResources(['foods' => 'FoodController']);
 Route::apiResources(['exercises' => 'ExerciseController']);
 Route::apiResources(['typeroutines' => 'TypeRoutineController']);
+
+Route::get('userprogresses/currentUserProgresses', 
+            'UserProgressController@getUserProgressByUserToken');
 Route::apiResources(['userprogresses' => 'UserProgressController']);
+
 Route::apiResources(['bodyareas' => 'BodyAreaController']);
 
 //Processes' routes.
