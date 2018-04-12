@@ -38,7 +38,11 @@ Route::group([
 //WareHopes' routes.
 Route::apiResources(['foods' => 'FoodController']);
 Route::apiResources(['typeroutines' => 'TypeRoutineController']);
+
+Route::get('userprogresses/currentUserProgresses', 
+            'UserProgressController@getUserProgressByUserToken');
 Route::apiResources(['userprogresses' => 'UserProgressController']);
+
 Route::apiResources(['bodyareas' => 'BodyAreaController']);
 Route::apiResources(['days' => 'DayController']);
 

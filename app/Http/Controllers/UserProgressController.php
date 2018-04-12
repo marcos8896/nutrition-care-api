@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\UserProgress;
 use App\Http\Resources\UserProgressResource;
-use Illuminate\Support\Facades\Auth;
-
+use JWTAuth;
 use Illuminate\Http\Request;
 
 
@@ -32,7 +31,7 @@ class UserProgressController extends Controller
     public function store(Request $request)
     {
 
-        $user = Auth::guard('api')->user();
+        $user = JWTAuth::parseToken()->authenticate();
 
         $this->validate($request, [
           'weight'          => 'required|numeric',
@@ -104,5 +103,17 @@ class UserProgressController extends Controller
     {
         $userprogress->delete();
         return $this->customResponse('success', $userprogress, 200);
+    }
+
+    public function getUserProgressByUserToken() {
+
+      $user = JWTAuth::parseToken()->authenticate();
+
+      //Check later how to avoid Lazy Loading.
+      $currentUserProgress = $user->userProgresses;
+
+      return $this->customResponse('success', $currentUserProgress, 200);
+      
+
     }
 }
