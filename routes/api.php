@@ -40,6 +40,7 @@ Route::apiResources(['foods' => 'FoodController']);
 Route::apiResources(['typeroutines' => 'TypeRoutineController']);
 Route::apiResources(['userprogresses' => 'UserProgressController']);
 Route::apiResources(['bodyareas' => 'BodyAreaController']);
+Route::apiResources(['days' => 'DayController']);
 
 //Processes' routes.
 Route::apiResources(['exercises' => 'ExerciseController']);
