@@ -14,6 +14,12 @@ class RoutineResource extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'description' => $this->description,
+            'state' => $this->state,
+            'routine_detail' => $this->whenLoaded('routineDetails'),
+            'user_info' => $this->whenLoaded('user'),
+        ];
     }
 }
