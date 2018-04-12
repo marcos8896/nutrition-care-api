@@ -6,6 +6,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\UserProgress;
+use App\Routine;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -41,8 +42,15 @@ class User extends Authenticatable implements JWTSubject
       return $this->hasMany(UserProgress::class);
     }
 
-    
-
+    /**
+     * Eloquent's definition of 'hasMany' relationship with a Routine instance.
+     *
+     * @param  {*}
+    */
+    public function routines()
+    {
+      return $this->hasMany(Routine::class);
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
