@@ -61,9 +61,9 @@ class RoutineController extends Controller
         $routineDetail->routine_id = $routine->id;
         $routineDetail->exercise_id = $day['exercise_id'];
         $routineDetail->day_id = $day['day_id'];
-        $routineDetail->series = isset($day['series']) ?: '';
-        $routineDetail->reps = isset($day['reps']) ?: '';
-        $routineDetail->description = isset($day['description']) ?: '';
+        $routineDetail->series = isset($day['series']) ? $day['series'] : '';
+        $routineDetail->reps = isset($day['reps']) ? $day['reps'] : '';
+        $routineDetail->description = isset($day['description']) ? $day['description'] : '';
 
         $routineDetail->save();
         
