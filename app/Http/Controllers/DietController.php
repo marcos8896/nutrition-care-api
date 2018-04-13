@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Diet;
 use App\Http\Resources\DietResource;
 use Illuminate\Http\Request;
+use JWTAuth;
 
 class DietController extends Controller
 {
@@ -29,8 +30,10 @@ class DietController extends Controller
     public function store(Request $request)
     {
 
-      //GET USER FROM JWT TOKEN AND USE THEIR user_id property.
-      //Set State to ACTIVO
+      //Attach related selectedFoods to the diet.
+
+      // Get the user info through the received token from the request
+      $user = JWTAuth::parseToken()->authenticate();
 
         $this->validate($request, [
           'totalCarbohydrates' => 'required|numeric',
@@ -45,7 +48,7 @@ class DietController extends Controller
         $diet = new Diet(request(['totalCarbohydrates', 'totalProteins', 'totalFats', 
                                   'totalCalories', 'register_date']));
 
-        $diet->user_id = 1;
+        $diet->user_id = $user->id;
         $diet->status = 'ACTIVO';
 
         $diet->save();
