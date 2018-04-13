@@ -49,6 +49,7 @@ Route::apiResources(['days' => 'DayController']);
 //Processes' routes.
 Route::apiResources(['exercises' => 'ExerciseController']);
 Route::apiResources(['routines' => 'RoutineController']);
+Route::apiResources(['diets' => 'DietController']);
 
 
 

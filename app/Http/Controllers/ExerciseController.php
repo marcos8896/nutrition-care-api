@@ -35,10 +35,10 @@ class ExerciseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'name'         => 'required|max:150|string',
-          'base64_image' => 'required|string',
-          'selectedBodyAreas' => 'array|required',
-          "selectedBodyAreas.*.id" => 'required|numeric|distinct',
+          'name'                   => 'required|max:150|string',
+          'base64_image'           => 'required|string',
+          'selectedBodyAreas'      => 'array|required',
+          'selectedBodyAreas.*.id' => 'required|numeric|distinct',
         ]);
 
 

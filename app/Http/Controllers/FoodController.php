@@ -17,7 +17,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        return FoodResource::collection(Food::paginate(10));
+        return FoodResource::collection(Food::all());
     }
 
     /**
