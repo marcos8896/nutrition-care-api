@@ -50,5 +50,8 @@ Route::apiResources(['days' => 'DayController']);
 Route::apiResources(['exercises' => 'ExerciseController']);
 Route::apiResources(['routines' => 'RoutineController']);
 
+Route::get('routines/user/{id}', 
+            'RoutineController@getRoutinesByUser');
+
 
 
