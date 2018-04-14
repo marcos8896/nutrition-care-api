@@ -41,8 +41,8 @@ class DietController extends Controller
           'totalFats'          => 'required|numeric',
           'totalCalories'      => 'required|numeric',
           'register_date'      => 'required|date',
-          // 'selectedFoods'      => 'array|required',
-          // 'selectedFoods.*.id' => 'required|numeric|distinct',
+          'selectedFoods'      => 'array|required',
+          'selectedFoods.*.food_id' => 'required|numeric|distinct',
         ]);
 
         $diet = new Diet(request(['totalCarbohydrates', 'totalProteins', 'totalFats', 
@@ -51,8 +51,23 @@ class DietController extends Controller
         $diet->user_id = $user->id;
         $diet->status = 'ACTIVO';
 
+        //Get id property from every selectedBodyArea object in the selectedBodyAreas array.
+        $selectedFoods = ($request->selectedFoods);
+        
         $diet->save();
+        
+        // //Make the relationship between the new diet and its related foods.
+        for ($i=0; $i < sizeOf($selectedFoods); $i++) {
+          $diet->foods()->attach( $selectedFoods[$i]['food_id'], [
+            'food_calories' => $selectedFoods[$i]['food_calories'],
+            'food_carbohydrates' => $selectedFoods[$i]['food_carbohydrates'],
+            'food_fats' => $selectedFoods[$i]['food_fats'],
+            'food_proteins' => $selectedFoods[$i]['food_proteins'],
+            'food_grams' => $selectedFoods[$i]['food_grams']
+          ]);
 
+        }
+          
         return $this->customResponse('success', $diet, 200);
 
 
