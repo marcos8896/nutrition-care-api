@@ -80,4 +80,19 @@ class RoutineController extends Controller
       return $this->customResponse('success', $response,  200);
 
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\UserProgress  $userprogress
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Routine $routine)
+    {
+        return new RoutineResource( Routine::with('routineDetails.exercise','routineDetails.day', 'user')->find($routine->id) );
+    }
+
+    function getRoutinesByUser($id)
+    {
+      return RoutineResource::collection(Routine::with('routineDetails', 'user')->where('user_id', $id)->get());
+    }
 }
