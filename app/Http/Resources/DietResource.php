@@ -16,13 +16,14 @@ class DietResource extends Resource
     {
       return [
         'id' => $this->id,
-        'user_id' => $this->user_id,
+        'user_id' => $this->user,
         'totalCarbohydrates' => $this->totalCarbohydrates,
         'totalProteins' => $this->totalProteins,
         'totalFats' => $this->totalFats,
         'totalCalories' => $this->totalCalories,
         'status' => $this->status,
         'register_date' => $this->register_date,
+        'foods' => $this->foods,
         'created_at' => $this->created_at,
         'updated_at' => $this->updated_at,
       ];

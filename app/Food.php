@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Diet;
 
 class Food extends Model
 {
@@ -11,5 +12,9 @@ class Food extends Model
     'description', 'proteins', 'carbohydrates',
     'fats', 'calories'
   ];
+
+  public function diets() {
+    return $this->belongsToMany(Diet::class);
+  }
 
 }

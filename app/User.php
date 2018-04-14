@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\UserProgress;
 use App\Routine;
+use App\Diet;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -50,6 +51,16 @@ class User extends Authenticatable implements JWTSubject
     public function routines()
     {
       return $this->hasMany(Routine::class);
+    }
+
+    /**
+     * Eloquent's definition of 'hasMany' relationship with a Diet instance.
+     *
+     * @param  {*}
+    */
+    public function diets()
+    {
+      return $this->hasMany(Diet::class);
     }
 
     /**

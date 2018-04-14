@@ -17,7 +17,7 @@ class DietController extends Controller
      */
     public function index()
     {
-      return DietResource::collection(Diet::all());
+      return DietResource::collection(Diet::with('foods', 'user')->get());
     }
 
     /**
@@ -67,7 +67,7 @@ class DietController extends Controller
      */
     public function show(Diet $diet)
     {
-        //
+      return new DietResource( Diet::find($diet->id) );
     }
 
     /**
