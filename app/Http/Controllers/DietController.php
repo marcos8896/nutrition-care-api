@@ -109,4 +109,23 @@ class DietController extends Controller
     {
         //
     }
+
+
+    /**
+     * Get user diets through request token.
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+     *
+     * @param  \App\Diet 
+     * @return \Illuminate\Http\Response
+     */
+    public function getDietsThroughUserToken() {
+
+      $user = JWTAuth::parseToken()->authenticate();
+      
+      //Check later how to avoid Lazy Loading.
+      $diets = $user->diets;
+      return $this->customResponse('success', $diets, 200);
+
+    }
+
 }
