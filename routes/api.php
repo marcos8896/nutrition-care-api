@@ -48,7 +48,10 @@ Route::apiResources(['days' => 'DayController']);
 
 //Processes' routes.
 Route::apiResources(['exercises' => 'ExerciseController']);
+
 Route::apiResources(['routines' => 'RoutineController']);
+Route::get('routines/user/{id}', 
+            'RoutineController@getRoutinesByUser');
 
 Route::get('diets/userDiets', 'DietController@getDietsThroughUserToken');
 Route::apiResources(['diets' => 'DietController']);

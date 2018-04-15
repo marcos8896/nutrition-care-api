@@ -61,9 +61,9 @@ class RoutineController extends Controller
         $routineDetail->routine_id = $routine->id;
         $routineDetail->exercise_id = $day['exercise_id'];
         $routineDetail->day_id = $day['day_id'];
-        $routineDetail->series = isset($day['series']) ?: '';
-        $routineDetail->reps = isset($day['reps']) ?: '';
-        $routineDetail->description = isset($day['description']) ?: '';
+        $routineDetail->series = isset($day['series']) ? $day['series'] : '';
+        $routineDetail->reps = isset($day['reps']) ? $day['reps'] : '';
+        $routineDetail->description = isset($day['description']) ? $day['description'] : '';
 
         $routineDetail->save();
         
@@ -79,5 +79,20 @@ class RoutineController extends Controller
       // Response sent to the client
       return $this->customResponse('success', $response,  200);
 
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\UserProgress  $userprogress
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Routine $routine)
+    {
+        return new RoutineResource( Routine::with('routineDetails.exercise','routineDetails.day', 'user')->find($routine->id) );
+    }
+
+    function getRoutinesByUser($id)
+    {
+      return RoutineResource::collection(Routine::with('routineDetails', 'user')->where('user_id', $id)->get());
     }
 }

@@ -22,9 +22,9 @@ class CreateRoutineDetailsTable extends Migration
             $table->integer('exercise_id')->unsigned()->index();
             $table->foreign('exercise_id')->references('id')->on('exercises');
 
-            $table->text('series');
-            $table->text('reps');
-            $table->text('description');
+            $table->string('series');
+            $table->string('reps');
+            $table->string('description');
 
             $table->timestamps();
         });

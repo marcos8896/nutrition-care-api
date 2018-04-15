@@ -18,8 +18,11 @@ class RoutineResource extends Resource
             'id' => $this->id,
             'description' => $this->description,
             'state' => $this->state,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
             'routine_detail' => $this->whenLoaded('routineDetails'),
             'user_info' => $this->whenLoaded('user'),
+
         ];
     }
 }
