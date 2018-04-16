@@ -10,7 +10,7 @@ class Diet extends Model
 {
   protected $fillable = [
     'totalCarbohydrates', 'totalProteins', 'totalFats',     
-    'totalCalories', 'register_date'      
+    'totalCalories', 'register_date', 'description'      
   ];
 
   public function foods() {

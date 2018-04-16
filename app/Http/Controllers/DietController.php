@@ -36,6 +36,7 @@ class DietController extends Controller
       $user = JWTAuth::parseToken()->authenticate();
 
         $this->validate($request, [
+          'description'        => 'string|required',
           'totalCarbohydrates' => 'required|numeric',
           'totalProteins'      => 'required|numeric',
           'totalFats'          => 'required|numeric',
@@ -46,7 +47,7 @@ class DietController extends Controller
         ]);
 
         $diet = new Diet(request(['totalCarbohydrates', 'totalProteins', 'totalFats', 
-                                  'totalCalories', 'register_date']));
+                                  'totalCalories', 'register_date', 'description']));
 
         $diet->user_id = $user->id;
         $diet->status = 'ACTIVO';
@@ -63,7 +64,8 @@ class DietController extends Controller
             'food_carbohydrates' => $selectedFoods[$i]['food_carbohydrates'],
             'food_fats' => $selectedFoods[$i]['food_fats'],
             'food_proteins' => $selectedFoods[$i]['food_proteins'],
-            'food_grams' => $selectedFoods[$i]['food_grams']
+            'food_grams' => $selectedFoods[$i]['food_grams'],
+            'food_description' => $selectedFoods[$i]['food_description'],
           ]);
 
         }

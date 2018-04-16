@@ -24,6 +24,7 @@ class CreateDietFoodPivotTable extends Migration
             $table->float('food_fats', 12, 2);
             $table->float('food_proteins', 12, 2);
             $table->float('food_grams', 12, 2);
+            $table->text('food_description');
 
         });
     }
