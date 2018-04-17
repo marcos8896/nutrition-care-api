@@ -84,7 +84,13 @@ class DietController extends Controller
      */
     public function show(Diet $diet)
     {
-      return new DietResource( Diet::find($diet->id) );
+      $user = JWTAuth::parseToken()->authenticate();
+
+      return new DietResource( 
+        Diet::where('user_id', $user->id)
+        ->where('id', $diet->id)
+        ->first()
+      );
     }
 
     /**
