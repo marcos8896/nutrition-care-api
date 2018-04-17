@@ -16,9 +16,9 @@ class Diet extends Model
   public function foods() {
     return $this->belongsToMany(Food::class)
                 ->withPivot(
-                              'food_calories', 'food_carbohydrates', 
-                              'food_fats', 'food_proteins', 'food_grams',
-                              'food_description'
+                              'desiredCalories', 'desiredCarbohydrates', 
+                              'desiredFats', 'desiredProteins', 'desiredGrams',
+                              'description'
                             );
   }
 

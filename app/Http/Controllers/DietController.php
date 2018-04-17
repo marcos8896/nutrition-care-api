@@ -60,12 +60,12 @@ class DietController extends Controller
         // //Make the relationship between the new diet and its related foods.
         for ($i=0; $i < sizeOf($selectedFoods); $i++) {
           $diet->foods()->attach( $selectedFoods[$i]['food_id'], [
-            'food_calories' => $selectedFoods[$i]['food_calories'],
-            'food_carbohydrates' => $selectedFoods[$i]['food_carbohydrates'],
-            'food_fats' => $selectedFoods[$i]['food_fats'],
-            'food_proteins' => $selectedFoods[$i]['food_proteins'],
-            'food_grams' => $selectedFoods[$i]['food_grams'],
-            'food_description' => $selectedFoods[$i]['food_description'],
+            'desiredCalories' => $selectedFoods[$i]['desiredCalories'],
+            'desiredCarbohydrates' => $selectedFoods[$i]['desiredCarbohydrates'],
+            'desiredFats' => $selectedFoods[$i]['desiredFats'],
+            'desiredProteins' => $selectedFoods[$i]['desiredProteins'],
+            'desiredGrams' => $selectedFoods[$i]['desiredGrams'],
+            'description' => $selectedFoods[$i]['description'],
           ]);
 
         }
