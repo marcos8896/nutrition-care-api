@@ -108,9 +108,8 @@ class DietController extends Controller
       
       //Validate if the current user is the owner's diet.
       if($user->id != $diet->user_id)
-        return $this->customResponse('error', $diet, 401); 
+        return $this->customResponse('error', '¿A dónde tan peinado, joven?', 401); 
 
-      
 
       $this->validate($request, [
         'description'        => 'string|required',
