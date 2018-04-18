@@ -103,7 +103,56 @@ class DietController extends Controller
      */
     public function update(Request $request, Diet $diet)
     {
-        //
+
+      $user = JWTAuth::parseToken()->authenticate();
+      
+      //Validate if the current user is the owner's diet.
+      if($user->id != $diet->user_id)
+        return $this->customResponse('error', $diet, 401); 
+
+      
+
+      $this->validate($request, [
+        'description'        => 'string|required',
+        'totalCarbohydrates' => 'required|numeric',
+        'totalProteins'      => 'required|numeric',
+        'totalFats'          => 'required|numeric',
+        'totalCalories'      => 'required|numeric',
+        'selectedFoods'      => 'array|required',
+        'selectedFoods.*.food_id' => 'required|numeric|distinct',
+      ]);
+
+      $diet->description        = $request->description;
+      $diet->totalCarbohydrates = $request->totalCarbohydrates;
+      $diet->totalProteins      = $request->totalProteins;
+      $diet->totalFats          = $request->totalFats;
+      $diet->totalCalories      = $request->totalCalories;
+
+      //Get id property from every selectedFood object in the selectedFoods array.
+      $selectedFoodsIds = array_column($request->selectedFoods, 'id');
+      $selectedFoods = $request->selectedFoods;
+
+      $diet->update();
+
+      //Detach all related foods.
+      $diet->foods()->detach($selectedFoodsIds);
+
+      //Attach all new related foods with the new values.
+      //Make the relationship between the new diet and its related foods.
+      for ($i=0; $i < sizeOf($selectedFoods); $i++) {
+        $diet->foods()->attach( $selectedFoods[$i]['food_id'], [
+          'carbohydrates' => $selectedFoods[$i]['carbohydrates'],
+          'calories' => $selectedFoods[$i]['calories'],
+          'fats' => $selectedFoods[$i]['fats'],
+          'proteins' => $selectedFoods[$i]['proteins'],
+          'desiredGrams' => $selectedFoods[$i]['desiredGrams'],
+          'description' => $selectedFoods[$i]['description'],
+        ]);
+
+      }
+
+      return $this->customResponse('success', $diet, 200);  
+      
     }
 
     /**
