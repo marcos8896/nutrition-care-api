@@ -110,7 +110,6 @@ class DietController extends Controller
       if($user->id != $diet->user_id)
         return $this->customResponse('error', '¿A dónde tan peinado, joven?', 401); 
 
-
       $this->validate($request, [
         'description'        => 'string|required',
         'totalCarbohydrates' => 'required|numeric',
@@ -133,6 +132,7 @@ class DietController extends Controller
 
       $diet->update();
 
+
       //Detach all related foods.
       $diet->foods()->detach($selectedFoodsIds);
 
@@ -149,6 +149,10 @@ class DietController extends Controller
         ]);
 
       }
+
+      //Removes all the relationship between the '$diet' and the foods 
+      //that are not on the '$selectedFoods' array.
+      $diet->foods()->sync($selectedFoodsIds);
 
       return $this->customResponse('success', $diet, 200);  
       
