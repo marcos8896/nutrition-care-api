@@ -54,6 +54,7 @@ Route::get('routines/user/{id}',
             'RoutineController@getRoutinesByUser');
 
 Route::get('diets/userDiets', 'DietController@getDietsThroughUserToken');
+Route::delete('diets/setAsInactive/{id}', 'DietController@setAsInactive');
 Route::apiResources(['diets' => 'DietController']);
 
 

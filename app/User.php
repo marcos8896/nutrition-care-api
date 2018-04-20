@@ -64,6 +64,16 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Get only the active diets.
+     *
+     * @param  {*}
+    */
+    public function activeDiets()
+    {
+      return $this->hasMany(Diet::class)->where('status', 'ACTIVO');
+    }
+
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed

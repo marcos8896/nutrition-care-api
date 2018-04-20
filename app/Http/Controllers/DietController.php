@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Diet;
 use App\Http\Resources\DietResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use JWTAuth;
 
 class DietController extends Controller
@@ -165,9 +166,8 @@ class DietController extends Controller
      * @param  \App\Diet  $diet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Diet $diet)
-    {
-        //
+    public function destroy(Diet $diet) {
+        
     }
 
 
@@ -183,9 +183,29 @@ class DietController extends Controller
       $user = JWTAuth::parseToken()->authenticate();
       
       //Check later how to avoid Lazy Loading.
-      $diets = $user->diets;
+      $diets = $user->activeDiets;
       return $this->customResponse('success', $diets, 200);
 
     }
+
+
+
+    public function setAsInactive($dietId) {
+
+      $user = JWTAuth::parseToken()->authenticate();
+
+      $diet = DB::table('diets')->where('id', $dietId)->first();
+      
+      //Validate if the current user is the owner's diet.
+      if($user->id != $diet->user_id)
+        return $this->customResponse('error', '¿A dónde tan peinado, joven >:v?', 401);
+      
+        
+      DB::table('diets')->where('id', $dietId)->update(['status' => 'INACTIVO']);
+      
+      return $this->customResponse('success', 'Todo bien, jovenazo', 200);
+
+    }
+
 
 }
