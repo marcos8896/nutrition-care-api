@@ -17,13 +17,14 @@ class CreateDietFoodPivotTable extends Migration
             $table->foreign('diet_id')->references('id')->on('diets')->onDelete('cascade');
             $table->integer('food_id')->unsigned()->index();
             $table->foreign('food_id')->references('id')->on('foods')->onDelete('cascade');
-            $table->primary(['diet_id', 'food_id']);
+            $table->primary(['diet_id', 'food_id', 'description']);
 
-            $table->float('food_calories', 12, 2);
-            $table->float('food_carbohydrates', 12, 2);
-            $table->float('food_fats', 12, 2);
-            $table->float('food_proteins', 12, 2);
-            $table->float('food_grams', 12, 2);
+            $table->float('calories', 12, 2);
+            $table->float('carbohydrates', 12, 2);
+            $table->float('fats', 12, 2);
+            $table->float('proteins', 12, 2);
+            $table->float('desiredGrams', 12, 2);
+            $table->string('description');
 
         });
     }

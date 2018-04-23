@@ -10,14 +10,14 @@ class Diet extends Model
 {
   protected $fillable = [
     'totalCarbohydrates', 'totalProteins', 'totalFats',     
-    'totalCalories', 'register_date'      
+    'totalCalories', 'register_date', 'description'      
   ];
 
   public function foods() {
     return $this->belongsToMany(Food::class)
                 ->withPivot(
-                              'food_calories', 'food_carbohydrates', 
-                              'food_fats', 'food_proteins', 'food_grams'
+                              'calories', 'carbohydrates','fats', 
+                              'proteins', 'desiredGrams', 'description'
                             );
   }
 

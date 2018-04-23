@@ -16,6 +16,7 @@ class CreateDietsTable extends Migration
         Schema::create('diets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->text('description');
             $table->float('totalCarbohydrates', 12, 2);
             $table->float('totalProteins', 12, 2);
             $table->float('totalFats', 12, 2);

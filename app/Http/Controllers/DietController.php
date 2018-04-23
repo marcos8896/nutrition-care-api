@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Diet;
 use App\Http\Resources\DietResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use JWTAuth;
 
 class DietController extends Controller
@@ -36,6 +37,7 @@ class DietController extends Controller
       $user = JWTAuth::parseToken()->authenticate();
 
         $this->validate($request, [
+          'description'        => 'string|required',
           'totalCarbohydrates' => 'required|numeric',
           'totalProteins'      => 'required|numeric',
           'totalFats'          => 'required|numeric',
@@ -46,7 +48,7 @@ class DietController extends Controller
         ]);
 
         $diet = new Diet(request(['totalCarbohydrates', 'totalProteins', 'totalFats', 
-                                  'totalCalories', 'register_date']));
+                                  'totalCalories', 'register_date', 'description']));
 
         $diet->user_id = $user->id;
         $diet->status = 'ACTIVO';
@@ -59,11 +61,12 @@ class DietController extends Controller
         // //Make the relationship between the new diet and its related foods.
         for ($i=0; $i < sizeOf($selectedFoods); $i++) {
           $diet->foods()->attach( $selectedFoods[$i]['food_id'], [
-            'food_calories' => $selectedFoods[$i]['food_calories'],
-            'food_carbohydrates' => $selectedFoods[$i]['food_carbohydrates'],
-            'food_fats' => $selectedFoods[$i]['food_fats'],
-            'food_proteins' => $selectedFoods[$i]['food_proteins'],
-            'food_grams' => $selectedFoods[$i]['food_grams']
+            'calories' => $selectedFoods[$i]['calories'],
+            'carbohydrates' => $selectedFoods[$i]['carbohydrates'],
+            'fats' => $selectedFoods[$i]['fats'],
+            'proteins' => $selectedFoods[$i]['proteins'],
+            'desiredGrams' => $selectedFoods[$i]['desiredGrams'],
+            'description' => $selectedFoods[$i]['description'],
           ]);
 
         }
@@ -82,7 +85,13 @@ class DietController extends Controller
      */
     public function show(Diet $diet)
     {
-      return new DietResource( Diet::find($diet->id) );
+      $user = JWTAuth::parseToken()->authenticate();
+
+      return new DietResource( 
+        Diet::where('user_id', $user->id)
+        ->where('id', $diet->id)
+        ->first()
+      );
     }
 
     /**
@@ -95,7 +104,59 @@ class DietController extends Controller
      */
     public function update(Request $request, Diet $diet)
     {
-        //
+
+      $user = JWTAuth::parseToken()->authenticate();
+      
+      //Validate if the current user is the owner's diet.
+      if($user->id != $diet->user_id)
+        return $this->customResponse('error', '¿A dónde tan peinado, joven?', 401); 
+
+      $this->validate($request, [
+        'description'        => 'string|required',
+        'totalCarbohydrates' => 'required|numeric',
+        'totalProteins'      => 'required|numeric',
+        'totalFats'          => 'required|numeric',
+        'totalCalories'      => 'required|numeric',
+        'selectedFoods'      => 'array|required',
+        'selectedFoods.*.food_id' => 'required|numeric|distinct',
+      ]);
+
+      $diet->description        = $request->description;
+      $diet->totalCarbohydrates = $request->totalCarbohydrates;
+      $diet->totalProteins      = $request->totalProteins;
+      $diet->totalFats          = $request->totalFats;
+      $diet->totalCalories      = $request->totalCalories;
+
+      //Get id property from every selectedFood object in the selectedFoods array.
+      $selectedFoodsIds = array_column($request->selectedFoods, 'id');
+      $selectedFoods = $request->selectedFoods;
+
+      $diet->update();
+
+
+      //Detach all related foods.
+      $diet->foods()->detach($selectedFoodsIds);
+
+      //Attach all new related foods with the new values.
+      //Make the relationship between the new diet and its related foods.
+      for ($i=0; $i < sizeOf($selectedFoods); $i++) {
+        $diet->foods()->attach( $selectedFoods[$i]['food_id'], [
+          'carbohydrates' => $selectedFoods[$i]['carbohydrates'],
+          'calories' => $selectedFoods[$i]['calories'],
+          'fats' => $selectedFoods[$i]['fats'],
+          'proteins' => $selectedFoods[$i]['proteins'],
+          'desiredGrams' => $selectedFoods[$i]['desiredGrams'],
+          'description' => $selectedFoods[$i]['description'],
+        ]);
+
+      }
+
+      //Removes all the relationship between the '$diet' and the foods 
+      //that are not on the '$selectedFoods' array.
+      $diet->foods()->sync($selectedFoodsIds);
+
+      return $this->customResponse('success', $diet, 200);  
+      
     }
 
     /**
@@ -105,9 +166,8 @@ class DietController extends Controller
      * @param  \App\Diet  $diet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Diet $diet)
-    {
-        //
+    public function destroy(Diet $diet) {
+        
     }
 
 
@@ -123,9 +183,29 @@ class DietController extends Controller
       $user = JWTAuth::parseToken()->authenticate();
       
       //Check later how to avoid Lazy Loading.
-      $diets = $user->diets;
+      $diets = $user->activeDiets;
       return $this->customResponse('success', $diets, 200);
 
     }
+
+
+
+    public function setAsInactive($dietId) {
+
+      $user = JWTAuth::parseToken()->authenticate();
+
+      $diet = DB::table('diets')->where('id', $dietId)->first();
+      
+      //Validate if the current user is the owner's diet.
+      if($user->id != $diet->user_id)
+        return $this->customResponse('error', '¿A dónde tan peinado, joven >:v?', 401);
+      
+        
+      DB::table('diets')->where('id', $dietId)->update(['status' => 'INACTIVO']);
+      
+      return $this->customResponse('success', 'Todo bien, jovenazo', 200);
+
+    }
+
 
 }

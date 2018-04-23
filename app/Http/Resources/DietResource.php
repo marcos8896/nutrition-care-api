@@ -24,6 +24,7 @@ class DietResource extends Resource
         'status' => $this->status,
         'register_date' => $this->register_date,
         'foods' => $this->foods,
+        'description' => $this->description,
         'created_at' => $this->created_at,
         'updated_at' => $this->updated_at,
       ];
