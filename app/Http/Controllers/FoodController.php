@@ -105,18 +105,25 @@ class FoodController extends Controller
 
 
     /**
-     * Gets all the foods order from the one with more protein per gram
-     * to the one with the lowest protein value per gram
+     * Return the foods that match with the specified params
+     * which are contained on the request body.
      *
+     * @param  \App\Food  $request
      * @return \Illuminate\Http\Response
      * @author Marcos Barrera del Río <elyomarcos@gmail.com>
      */
-    public function foodsWithMoreProteins()
+    public function handleFoodReports(Request $request)
     {
 
+      $this->validate($request, [
+        'column' => 'required|max:35|string',
+        'order'  => 'required|max:10|string',
+        'limit'  => 'required|numeric',
+        ]);
+
       return FoodResource::collection(
-        Food::orderBy('proteins', 'desc')
-        // ->take(10)
+        Food::orderBy($request->column, $request->order)
+        ->take($request->limit)
         ->get()
       );
 
