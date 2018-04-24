@@ -35,6 +35,10 @@ Route::group([
 
 });
 
+//Food reports routes.
+Route::get('foods/withMoreProtein', 
+            'FoodController@foodsWithMoreProteins');
+
 //WareHopes' routes.
 Route::apiResources(['foods' => 'FoodController']);
 Route::apiResources(['typeroutines' => 'TypeRoutineController']);

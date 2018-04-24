@@ -102,4 +102,24 @@ class FoodController extends Controller
         $food->delete();
         return $this->customResponse('success', $food, 200);
     }
+
+
+    /**
+     * Gets all the foods order from the one with more protein per gram
+     * to the one with the lowest protein value per gram
+     *
+     * @return \Illuminate\Http\Response
+     * @author Marcos Barrera del Río <elyomarcos@gmail.com>
+     */
+    public function foodsWithMoreProteins()
+    {
+
+      return FoodResource::collection(
+        Food::orderBy('proteins', 'desc')
+        // ->take(10)
+        ->get()
+      );
+
+    }
+
 }
